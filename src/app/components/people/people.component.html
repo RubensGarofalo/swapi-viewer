@@ -1,0 +1,143 @@
+<ng-container *ngFor="let people of peoples; let idx = index">
+  <ion-item id="open-modal-{{ idx }}" (click)="openModal(people)">
+    <ion-label>{{ people.name }}</ion-label>
+  </ion-item>
+  <ion-modal #modal trigger="open-modal-{{ idx }}">
+    <ng-template>
+      <ng-container *ngIf="currentPeople$ | async as currentPeople">
+        <ion-header>
+          <ion-toolbar>
+            <ion-buttons slot="start">
+              <ion-button (click)="modal.dismiss()">Cancel</ion-button>
+            </ion-buttons>
+            <ion-title>{{ currentPeople.name }}</ion-title>
+          </ion-toolbar>
+        </ion-header>
+        <ion-content class="ion-padding">
+          <ion-item-group *ngIf="currentPeople.birth_year">
+            <h5>Birth year:</h5>
+            <ion-item>
+              <ion-label>{{ currentPeople.birth_year }}</ion-label>
+            </ion-item>
+          </ion-item-group>
+          <ion-item-group *ngIf="currentPeople.eye_color">
+            <h5>Eye color:</h5>
+            <ion-item>
+              <ion-label>{{ currentPeople.eye_color }}</ion-label>
+            </ion-item>
+          </ion-item-group>
+          <ion-item-group *ngIf="currentPeople.skin_color">
+            <h5>Skin color:</h5>
+            <ion-item>
+              <ion-label>{{ currentPeople.skin_color }}</ion-label>
+            </ion-item>
+          </ion-item-group>
+          <ion-item-group *ngIf="currentPeople.mass">
+            <h5>Mass:</h5>
+            <ion-item>
+              <ion-label>{{ currentPeople.mass }}</ion-label>
+            </ion-item>
+          </ion-item-group>
+          <ion-item-group *ngIf="currentPeople.homeworld">
+            <h5>Homeworld:</h5>
+            <ion-item>
+              <ion-label>{{ currentPeople.homeworld }}</ion-label>
+            </ion-item>
+          </ion-item-group>
+          <ion-item-group *ngIf="currentPeople.height">
+            <h5>Height:</h5>
+            <ion-item>
+              <ion-label>{{ currentPeople.height }}</ion-label>
+            </ion-item>
+          </ion-item-group>
+          <ion-item-group *ngIf="currentPeople.created">
+            <h5>Created:</h5>
+            <ion-item>
+              <ion-label>{{ currentPeople.created }}</ion-label>
+            </ion-item>
+          </ion-item-group>
+
+          <ion-item-group *ngIf="currentPeople.edited">
+            <h5>Edited:</h5>
+            <ion-item>
+              <ion-label>{{ currentPeople.edited }}</ion-label>
+            </ion-item>
+          </ion-item-group>
+          <ion-item-group *ngIf="currentPeople.url">
+            <h5>Url:</h5>
+            <ion-item>
+              <ion-label>{{ currentPeople.url }}</ion-label>
+            </ion-item>
+          </ion-item-group>
+
+          <ion-accordion-group>
+            <ion-accordion
+              *ngIf="currentPeople.films && currentPeople.films.length > 0"
+              value="films"
+            >
+              <ion-item slot="header" color="light">
+                <h5>Films</h5>
+              </ion-item>
+              <div
+                class="ion-padding"
+                slot="content"
+                *ngFor="let film of currentPeople.films"
+              >
+                <ion-label>{{ film }}</ion-label>
+              </div>
+            </ion-accordion>
+            <ion-accordion
+              *ngIf="currentPeople.species && currentPeople.species.length > 0"
+              value="species"
+            >
+              <ion-item slot="header" color="light">
+                <h5>Species</h5>
+              </ion-item>
+              <div
+                class="ion-padding"
+                slot="content"
+                *ngFor="let specie of currentPeople.species"
+              >
+                <ion-label>{{ specie }}</ion-label>
+              </div>
+            </ion-accordion>
+            <ion-accordion
+              *ngIf="
+                currentPeople.starships && currentPeople.starships.length > 0
+              "
+              value="species"
+            >
+              <ion-item slot="header" color="light">
+                <h5>Starships</h5>
+              </ion-item>
+              <div
+                class="ion-padding"
+                slot="content"
+                *ngFor="let starship of currentPeople.starships"
+              >
+                <ion-label>{{ starship }}</ion-label>
+              </div>
+            </ion-accordion>
+            <ion-accordion
+              *ngIf="
+                currentPeople.vehicles && currentPeople.vehicles.length > 0
+              "
+              value="vehicles"
+            >
+              <ion-item slot="header" color="light">
+                <h5>Vehicles</h5>
+              </ion-item>
+              <div
+                class="ion-padding"
+                slot="content"
+                *ngFor="let vehicle of currentPeople.vehicles"
+              >
+                <ion-label>{{ vehicle }}</ion-label>
+              </div>
+            </ion-accordion>
+          </ion-accordion-group>
+        </ion-content>
+      </ng-container>
+    </ng-template>
+  </ion-modal>
+</ng-container>

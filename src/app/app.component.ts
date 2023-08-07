@@ -1,18 +1,28 @@
 import { Component } from '@angular/core';
+import { ApiService } from './api.service';
+import { BehaviorSubject, Observable, of, tap } from 'rxjs';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  public appPages = [
-    { title: 'Inbox', url: '/folder/inbox', icon: 'mail' },
-    { title: 'Outbox', url: '/folder/outbox', icon: 'paper-plane' },
-    { title: 'Favorites', url: '/folder/favorites', icon: 'heart' },
-    { title: 'Archived', url: '/folder/archived', icon: 'archive' },
-    { title: 'Trash', url: '/folder/trash', icon: 'trash' },
-    { title: 'Spam', url: '/folder/spam', icon: 'warning' },
-  ];
-  public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
-  constructor() {}
+  types$ = this._apiSvc.getAllTypes();
+  res$: Observable<any> = of(null);
+  loading$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  currentType$: BehaviorSubject<string> = new BehaviorSubject('');
+
+  constructor(private _apiSvc: ApiService) {}
+
+  selectType(event: any): void {
+    this.loading$.next(true);
+    this.currentType$.next(event.detail.value);
+    this.res$ = this._apiSvc.get(event.detail.value).pipe(
+      tap((r) => {
+        if (r != null) {
+          this.loading$.next(false);
+        }
+      })
+    );
+  }
 }
