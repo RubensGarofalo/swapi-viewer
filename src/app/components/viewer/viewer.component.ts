@@ -11,6 +11,7 @@ import { ModalViewerComponent } from './modal-viewer.modal';
 export class ViewerComponent {
   @Input() items: any[] = [];
   detail$: Observable<any> = of(null);
+  searchString: string = '';
 
   constructor(public apiSvc: ApiService, private modalCtrl: ModalController) {}
 

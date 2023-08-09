@@ -13,6 +13,10 @@ import { GetTitlePipe } from './get-title.pipe';
 import { ToArrayPipe } from './to-array.pipe';
 import { HideFieldPipe } from './hide-field.pipe';
 import { ModalViewerComponent } from './components/viewer/modal-viewer.modal';
+import { SortPipe } from './sort.pipe';
+import { FilterByPipe } from './filter-by.pipe';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -23,9 +27,13 @@ import { ModalViewerComponent } from './components/viewer/modal-viewer.modal';
     ToArrayPipe,
     HideFieldPipe,
     ModalViewerComponent,
+    SortPipe,
+    FilterByPipe,
   ],
   imports: [
     BrowserModule,
+    CommonModule,
+    FormsModule,
     IonicModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,

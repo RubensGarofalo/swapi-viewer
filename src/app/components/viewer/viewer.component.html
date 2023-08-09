@@ -1,4 +1,9 @@
-<ng-container *ngFor="let item of items; let idx = index">
+<ion-item>
+  <ion-input type="text" [(ngModel)]="searchString" placeholder="Search..." />
+</ion-item>
+<ng-container
+  *ngFor="let item of items | sort | filterBy : searchString; let idx = index"
+>
   <ion-item (click)="openModal(item)">
     <ion-label>{{ item | getTitle }}</ion-label>
   </ion-item>
