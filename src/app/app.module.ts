@@ -7,11 +7,23 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { PeopleComponent } from './components/people/people.component';
-import { FilmsComponent } from './components/films/films.component';
+import { ViewerComponent } from './components/viewer/viewer.component';
+import { GetTypePipe } from './components/get-type.pipe';
+import { GetTitlePipe } from './get-title.pipe';
+import { ToArrayPipe } from './to-array.pipe';
+import { HideFieldPipe } from './hide-field.pipe';
+import { ModalViewerComponent } from './components/viewer/modal-viewer.modal';
 
 @NgModule({
-  declarations: [AppComponent, PeopleComponent, FilmsComponent],
+  declarations: [
+    AppComponent,
+    ViewerComponent,
+    GetTypePipe,
+    GetTitlePipe,
+    ToArrayPipe,
+    HideFieldPipe,
+    ModalViewerComponent,
+  ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ApiService } from './api.service';
-import { BehaviorSubject, Observable, of, tap } from 'rxjs';
+import { BehaviorSubject, Observable, of, take } from 'rxjs';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -17,12 +17,14 @@ export class AppComponent {
   selectType(event: any): void {
     this.loading$.next(true);
     this.currentType$.next(event.detail.value);
-    this.res$ = this._apiSvc.get(event.detail.value).pipe(
-      tap((r) => {
+    this._apiSvc
+      .get(event.detail.value)
+      .pipe(take(1))
+      .subscribe((r) => {
         if (r != null) {
           this.loading$.next(false);
         }
-      })
-    );
+        this.res$ = of(r);
+      });
   }
 }

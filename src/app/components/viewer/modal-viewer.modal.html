@@ -1,0 +1,48 @@
+<ng-container *ngIf="detail != null">
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="end">
+        <ion-button (click)="close()">Close</ion-button>
+      </ion-buttons>
+      <ion-title>{{ detail | getTitle }}</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content class="ion-padding">
+    <ng-container>
+      <ng-container *ngFor="let val of detail | keyvalue">
+        <ng-container *ngIf="(val.value | getType) === 'string'">
+          <ng-container *ngIf="val.key | hideField">
+            <ion-item-group>
+              <h5 *ngIf="val.key">{{ val.key }}</h5>
+              <ion-item>
+                <ion-label>{{ val.value }}</ion-label>
+              </ion-item>
+            </ion-item-group>
+          </ng-container>
+        </ng-container>
+      </ng-container>
+      <ion-accordion-group>
+        <ng-container *ngFor="let val of detail | keyvalue">
+          <ng-container *ngIf="(val.value | getType) === 'array'">
+            <ion-accordion
+              [value]="val.key"
+              *ngIf="(val.value | toArray).length > 0"
+            >
+              <ion-item slot="header" color="light">
+                <h5>{{ val.key }}</h5>
+              </ion-item>
+              <div
+                class="ion-padding"
+                slot="content"
+                *ngFor="let v of val.value | toArray"
+                (click)="openModalByUrl(v)"
+              >
+                <ion-label class="hoverable-label">{{ v }}</ion-label>
+              </div>
+            </ion-accordion>
+          </ng-container>
+        </ng-container>
+      </ion-accordion-group>
+    </ng-container>
+  </ion-content>
+</ng-container>

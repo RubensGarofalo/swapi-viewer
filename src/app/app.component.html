@@ -13,9 +13,7 @@
     ></ion-progress-bar>
     <ng-container *ngIf="res$ | async as res">
       <ng-container [ngSwitch]="currentType$ | async">
-        <app-people *ngSwitchCase="'people'" [peoples]="res.results">
-        </app-people>
-        <app-films *ngSwitchCase="'films'" [films]="res.results"> </app-films>
+        <app-viewer [items]="res.results"></app-viewer>
       </ng-container>
     </ng-container>
   </ion-list>

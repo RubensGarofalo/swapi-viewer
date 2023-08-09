@@ -1,0 +1,5 @@
+<ng-container *ngFor="let item of items; let idx = index">
+  <ion-item (click)="openModal(item)">
+    <ion-label>{{ item | getTitle }}</ion-label>
+  </ion-item>
+</ng-container>

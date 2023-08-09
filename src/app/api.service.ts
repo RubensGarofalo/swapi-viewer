@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { Observable, of, tap } from 'rxjs';
 
 const BASE_URL = 'https://swapi.dev/api';
 const TYPES_URL = [
@@ -19,7 +19,29 @@ export class ApiService {
   constructor(private http: HttpClient) {}
 
   get(type: string): Observable<any> {
-    return this.http.get<any>(`${BASE_URL}/${type}`);
+    const url = `${BASE_URL}/${type}`;
+    const urlObj = localStorage.getItem(url);
+    if (urlObj != null) {
+      return of(JSON.parse(urlObj));
+    } else {
+      return this.http
+        .get<any>(url)
+        .pipe(
+          tap((urlObj) => localStorage.setItem(url, JSON.stringify(urlObj)))
+        );
+    }
+  }
+  getUrl(url: string): Observable<any> {
+    const urlObj = localStorage.getItem(url);
+    if (urlObj != null) {
+      return of(JSON.parse(urlObj));
+    } else {
+      return this.http
+        .get<any>(url)
+        .pipe(
+          tap((urlObj) => localStorage.setItem(url, JSON.stringify(urlObj)))
+        );
+    }
   }
 
   getAllTypes(): Observable<string[]> {
